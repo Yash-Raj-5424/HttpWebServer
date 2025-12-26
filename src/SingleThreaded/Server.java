@@ -22,6 +22,10 @@ public class Server {
                 PrintWriter toClient = new PrintWriter(socket.getOutputStream(), true);
                 BufferedReader fromClient = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 toClient.println("Hello from a SingleThreaded Server!");
+                toClient.close();
+                fromClient.close();
+                socket.close();
+
             }catch (IOException e){
                 e.printStackTrace();
             }
@@ -31,5 +35,11 @@ public class Server {
 
     public static void main(String[] args) {
 
+        try{
+            Server server = new Server();
+            server.run();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 }
